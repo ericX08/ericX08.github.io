@@ -7,16 +7,16 @@ import gymScene from "./Gym.glb";
 import Locker from "../assets/locker";
 import SkillDumbbell from "../assets/Skills";
 import {
-  javascript,
-  blender,
   csharp,
   css,
   html,
   java,
   php,
   python,
-  wordpress,
-  xamarin,
+  typescript,
+  r,
+  postgresql,
+  flutter,
   about,
   work,
   edu,
@@ -40,6 +40,11 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
   const [showHitboxes, setShowHitboxes] = useState(false);
   const characterRef = useRef();
   const barbellRef = useRef();
+  
+  // Helper function to safely access geometry
+  const safeGeometry = (nodeName) => {
+    return nodes[nodeName]?.geometry || null;
+  };
 
   useEffect(() => {
     if (playAnimation && characterRef.current) {
@@ -328,7 +333,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 materials={materials}
                 position={[3.37, 0.1, 9.08]}
                 rotation={[Math.PI / 2, 0, 0]}
-                onClick={() => onPopupTrigger("interactivePortfolio")}
+                onClick={() => onPopupTrigger("swimWebsite")}
                 canInteract={true}
               />
               <Locker
@@ -336,7 +341,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 materials={materials}
                 position={[4.62, 0.1, 9.08]}
                 rotation={[Math.PI / 2, 0, 0]}
-                onClick={() => onPopupTrigger("ecommerceIntegration")}
+                onClick={() => onPopupTrigger("saferly")}
                 canInteract={true}
               />
               <Locker
@@ -344,8 +349,8 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 materials={materials}
                 position={[5.87, 0.1, 9.08]}
                 rotation={[Math.PI / 2, 0, 0]}
-                onClick={() => console.log("Locker 3 clicked")}
-                canInteract={false}
+                onClick={() => onPopupTrigger("portfolio")}
+                canInteract={true}
               />
               <Locker
                 nodes={nodes}
@@ -529,6 +534,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
           )}
           {currentView === "skills" && (
             <>
+              {/* High Confidence Skills - Large Dumbbells */}
               <SkillDumbbell
                 nodes={nodes}
                 materials={materials}
@@ -550,8 +556,8 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 canInteract={true}
                 level="Large"
                 confidenceLevel={85}
-                svgPath={python}
-                svgPos={[0.05, -0.25, 0.018]}
+                svgPath={csharp}
+                svgPos={[0.05, -0.25, 0.02]}
               />
               <SkillDumbbell
                 nodes={nodes}
@@ -561,10 +567,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 scale={0.002}
                 canInteract={true}
                 level="Large"
+                confidenceLevel={85}
+                svgPath={python}
+                svgPos={[0.05, -0.25, 0.018]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 1.17, 0.2]}
+                rotation={[0, 0, 1.204]}
+                scale={0.002}
+                canInteract={true}
+                level="Large"
                 confidenceLevel={80}
-                svgPath={csharp}
+                svgPath={postgresql}
                 svgPos={[0.05, -0.25, 0.02]}
               />
+              
+              {/* Medium Confidence Skills - Medium Dumbbells */}
               <SkillDumbbell
                 nodes={nodes}
                 materials={materials}
@@ -573,9 +593,9 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 scale={0.0033}
                 canInteract={true}
                 level="Medium"
-                confidenceLevel={60}
-                svgPath={javascript}
-                svgPos={[0.05, -0.25, 0.008]}
+                confidenceLevel={75}
+                svgPath={typescript}
+                svgPos={[0.05, -0.25, 0.02]}
               />
               <SkillDumbbell
                 nodes={nodes}
@@ -585,7 +605,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 scale={0.0033}
                 canInteract={true}
                 level="Medium"
-                confidenceLevel={50}
+                confidenceLevel={70}
                 svgPath={html}
                 svgPos={[0.05, -0.25, 0.015]}
               />
@@ -597,10 +617,12 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 scale={0.0033}
                 canInteract={true}
                 level="Medium"
-                confidenceLevel={50}
+                confidenceLevel={70}
                 svgPath={css}
                 svgPos={[0.05, -0.25, 0.02]}
               />
+              
+              {/* Lower Confidence Skills - Small Dumbbells */}
               <SkillDumbbell
                 nodes={nodes}
                 materials={materials}
@@ -609,9 +631,9 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 scale={0.0015}
                 canInteract={true}
                 level="Small"
-                confidenceLevel={20}
-                svgPath={blender}
-                svgPos={[0.1, -0.25, 0.02]}
+                confidenceLevel={40}
+                svgPath={flutter}
+                svgPos={[0.05, -0.25, 0.02]}
               />
               <SkillDumbbell
                 nodes={nodes}
@@ -622,32 +644,20 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 canInteract={true}
                 level="Small"
                 confidenceLevel={30}
-                svgPath={wordpress}
-                svgPos={[0.08, -0.25, 0.02]}
-              />
-              <SkillDumbbell
-                nodes={nodes}
-                materials={materials}
-                position={[-13.6, 0.48, 0.5]}
-                rotation={[0, 0, 1.204]}
-                scale={0.0019}
-                canInteract={true}
-                level="Small"
-                confidenceLevel={30}
                 svgPath={php}
                 svgPos={[0.14, -0.25, 0]}
               />
               <SkillDumbbell
                 nodes={nodes}
                 materials={materials}
-                position={[-13.6, 0.48, 0.2]}
+                position={[-13.6, 0.48, 0.5]}
                 rotation={[0, 0, 1.204]}
                 scale={0.0015}
                 canInteract={true}
                 level="Small"
-                confidenceLevel={15}
-                svgPath={xamarin}
-                svgPos={[0.085, -0.25, 0.02]}
+                confidenceLevel={25}
+                svgPath={r}
+                svgPos={[0.05, -0.25, 0.02]}
               />
             </>
           )}
@@ -2225,21 +2235,21 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 <group name="Cube001">
                   <mesh
                     name="Cube__0001"
-                    geometry={nodes.Cube__0001.geometry}
+                    geometry={nodes.Cube__0001?.geometry}
                     material={materials["Scene_-_Root.001"]}
                   />
                 </group>
                 <group name="Symmetry001">
                   <mesh
                     name="Symmetry__0001"
-                    geometry={nodes.Symmetry__0001.geometry}
+                    geometry={nodes.Symmetry__0001?.geometry}
                     material={materials["Scene_-_Root.001"]}
                   />
                 </group>
                 <group name="Symmetry_1001">
                   <mesh
                     name="Symmetry_1__0001"
-                    geometry={nodes.Symmetry_1__0001.geometry}
+                    geometry={nodes.Symmetry_1__0001?.geometry}
                     material={materials["Scene_-_Root.001"]}
                   />
                 </group>
@@ -2274,21 +2284,21 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 <group name="Cube002">
                   <mesh
                     name="Cube__0002"
-                    geometry={nodes.Cube__0002.geometry}
+                    geometry={nodes.Cube__0002?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry002">
                   <mesh
                     name="Symmetry__0002"
-                    geometry={nodes.Symmetry__0002.geometry}
+                    geometry={nodes.Symmetry__0002?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry_1002">
                   <mesh
                     name="Symmetry_1__0002"
-                    geometry={nodes.Symmetry_1__0002.geometry}
+                    geometry={nodes.Symmetry_1__0002?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2316,21 +2326,21 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 <group name="Cube003">
                   <mesh
                     name="Cube__0003"
-                    geometry={nodes.Cube__0003.geometry}
+                    geometry={nodes.Cube__0003?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry003">
                   <mesh
                     name="Symmetry__0003"
-                    geometry={nodes.Symmetry__0003.geometry}
+                    geometry={nodes.Symmetry__0003?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry_1003">
                   <mesh
                     name="Symmetry_1__0003"
-                    geometry={nodes.Symmetry_1__0003.geometry}
+                    geometry={nodes.Symmetry_1__0003?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2358,21 +2368,21 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 <group name="Cube004">
                   <mesh
                     name="Cube__0004"
-                    geometry={nodes.Cube__0004.geometry}
+                    geometry={nodes.Cube__0004?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry004">
                   <mesh
                     name="Symmetry__0004"
-                    geometry={nodes.Symmetry__0004.geometry}
+                    geometry={nodes.Symmetry__0004?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry_1004">
                   <mesh
                     name="Symmetry_1__0004"
-                    geometry={nodes.Symmetry_1__0004.geometry}
+                    geometry={nodes.Symmetry_1__0004?.geometry}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2397,24 +2407,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4005" />
                 </group>
-                <group name="Cube005">
+                <group name="Cube006">
                   <mesh
-                    name="Cube__0005"
-                    geometry={nodes.Cube__0005.geometry}
+                    name="Cube__0006"
+                    geometry={safeGeometry("Cube__0006")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry005">
+                <group name="Symmetry006">
                   <mesh
-                    name="Symmetry__0005"
-                    geometry={nodes.Symmetry__0005.geometry}
+                    name="Symmetry__0006"
+                    geometry={safeGeometry("Symmetry__0006")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1005">
+                <group name="Symmetry_1006">
                   <mesh
-                    name="Symmetry_1__0005"
-                    geometry={nodes.Symmetry_1__0005.geometry}
+                    name="Symmetry_1__0006"
+                    geometry={safeGeometry("Symmetry_1__0006")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2439,24 +2449,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4006" />
                 </group>
-                <group name="Cube006">
+                <group name="Cube007">
                   <mesh
-                    name="Cube__0006"
-                    geometry={nodes.Cube__0006.geometry}
+                    name="Cube__0007"
+                    geometry={safeGeometry("Cube__0007")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry006">
+                <group name="Symmetry007">
                   <mesh
-                    name="Symmetry__0006"
-                    geometry={nodes.Symmetry__0006.geometry}
+                    name="Symmetry__0007"
+                    geometry={safeGeometry("Symmetry__0007")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1006">
+                <group name="Symmetry_1007">
                   <mesh
-                    name="Symmetry_1__0006"
-                    geometry={nodes.Symmetry_1__0006.geometry}
+                    name="Symmetry_1__0007"
+                    geometry={safeGeometry("Symmetry_1__0007")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2481,24 +2491,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4007" />
                 </group>
-                <group name="Cube007">
+                <group name="Cube008">
                   <mesh
-                    name="Cube__0007"
-                    geometry={nodes.Cube__0007.geometry}
+                    name="Cube__0008"
+                    geometry={safeGeometry("Cube__0008")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry007">
+                <group name="Symmetry008">
                   <mesh
-                    name="Symmetry__0007"
-                    geometry={nodes.Symmetry__0007.geometry}
+                    name="Symmetry__0008"
+                    geometry={safeGeometry("Symmetry__0008")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1007">
+                <group name="Symmetry_1008">
                   <mesh
-                    name="Symmetry_1__0007"
-                    geometry={nodes.Symmetry_1__0007.geometry}
+                    name="Symmetry_1__0008"
+                    geometry={safeGeometry("Symmetry_1__0008")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2523,24 +2533,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4008" />
                 </group>
-                <group name="Cube008">
+                <group name="Cube009">
                   <mesh
-                    name="Cube__0008"
-                    geometry={nodes.Cube__0008.geometry}
+                    name="Cube__0009"
+                    geometry={safeGeometry("Cube__0009")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry008">
+                <group name="Symmetry009">
                   <mesh
-                    name="Symmetry__0008"
-                    geometry={nodes.Symmetry__0008.geometry}
+                    name="Symmetry__0009"
+                    geometry={safeGeometry("Symmetry__0009")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1008">
+                <group name="Symmetry_1009">
                   <mesh
-                    name="Symmetry_1__0008"
-                    geometry={nodes.Symmetry_1__0008.geometry}
+                    name="Symmetry_1__0009"
+                    geometry={safeGeometry("Symmetry_1__0009")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2565,24 +2575,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4009" />
                 </group>
-                <group name="Cube009">
+                <group name="Cube010">
                   <mesh
-                    name="Cube__0009"
-                    geometry={nodes.Cube__0009.geometry}
+                    name="Cube__0010"
+                    geometry={safeGeometry("Cube__0010")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry009">
+                <group name="Symmetry010">
                   <mesh
-                    name="Symmetry__0009"
-                    geometry={nodes.Symmetry__0009.geometry}
+                    name="Symmetry__0010"
+                    geometry={safeGeometry("Symmetry__0010")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1009">
+                <group name="Symmetry_1010">
                   <mesh
-                    name="Symmetry_1__0009"
-                    geometry={nodes.Symmetry_1__0009.geometry}
+                    name="Symmetry_1__0010"
+                    geometry={safeGeometry("Symmetry_1__0010")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2607,24 +2617,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4010" />
                 </group>
-                <group name="Cube010">
+                <group name="Cube011">
                   <mesh
-                    name="Cube__0010"
-                    geometry={nodes.Cube__0010.geometry}
+                    name="Cube__0011"
+                    geometry={safeGeometry("Cube__0011")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry010">
+                <group name="Symmetry011">
                   <mesh
-                    name="Symmetry__0010"
-                    geometry={nodes.Symmetry__0010.geometry}
+                    name="Symmetry__0011"
+                    geometry={safeGeometry("Symmetry__0011")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1010">
+                <group name="Symmetry_1011">
                   <mesh
-                    name="Symmetry_1__0010"
-                    geometry={nodes.Symmetry_1__0010.geometry}
+                    name="Symmetry_1__0011"
+                    geometry={safeGeometry("Symmetry_1__0011")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2649,24 +2659,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4011" />
                 </group>
-                <group name="Cube011">
+                <group name="Cube012">
                   <mesh
-                    name="Cube__0011"
-                    geometry={nodes.Cube__0011.geometry}
+                    name="Cube__0012"
+                    geometry={safeGeometry("Cube__0012")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry011">
+                <group name="Symmetry012">
                   <mesh
-                    name="Symmetry__0011"
-                    geometry={nodes.Symmetry__0011.geometry}
+                    name="Symmetry__0012"
+                    geometry={safeGeometry("Symmetry__0012")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1011">
+                <group name="Symmetry_1012">
                   <mesh
-                    name="Symmetry_1__0011"
-                    geometry={nodes.Symmetry_1__0011.geometry}
+                    name="Symmetry_1__0012"
+                    geometry={safeGeometry("Symmetry_1__0012")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2691,24 +2701,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4012" />
                 </group>
-                <group name="Cube012">
+                <group name="Cube013">
                   <mesh
-                    name="Cube__0012"
-                    geometry={nodes.Cube__0012.geometry}
+                    name="Cube__0013"
+                    geometry={safeGeometry("Cube__0013")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry012">
+                <group name="Symmetry013">
                   <mesh
-                    name="Symmetry__0012"
-                    geometry={nodes.Symmetry__0012.geometry}
+                    name="Symmetry__0013"
+                    geometry={safeGeometry("Symmetry__0013")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1012">
+                <group name="Symmetry_1013">
                   <mesh
-                    name="Symmetry_1__0012"
-                    geometry={nodes.Symmetry_1__0012.geometry}
+                    name="Symmetry_1__0013"
+                    geometry={safeGeometry("Symmetry_1__0013")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2733,24 +2743,24 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4013" />
                 </group>
-                <group name="Cube013">
+                <group name="Cube014">
                   <mesh
-                    name="Cube__0013"
-                    geometry={nodes.Cube__0013.geometry}
+                    name="Cube__0014"
+                    geometry={safeGeometry("Cube__0014")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry013">
+                <group name="Symmetry014">
                   <mesh
-                    name="Symmetry__0013"
-                    geometry={nodes.Symmetry__0013.geometry}
+                    name="Symmetry__0014"
+                    geometry={safeGeometry("Symmetry__0014")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
-                <group name="Symmetry_1013">
+                <group name="Symmetry_1014">
                   <mesh
-                    name="Symmetry_1__0013"
-                    geometry={nodes.Symmetry_1__0013.geometry}
+                    name="Symmetry_1__0014"
+                    geometry={safeGeometry("Symmetry_1__0014")}
                     material={materials["Scene_-_Root.002"]}
                   />
                 </group>
@@ -2775,72 +2785,31 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
                 >
                   <group name="Object_4014" />
                 </group>
-                <group name="Cube014">
-                  <mesh
-                    name="Cube__0014"
-                    geometry={nodes.Cube__0014.geometry}
-                    material={materials["Scene_-_Root.003"]}
-                  />
-                </group>
-                <group name="Symmetry014">
-                  <mesh
-                    name="Symmetry__0014"
-                    geometry={nodes.Symmetry__0014.geometry}
-                    material={materials["Scene_-_Root.003"]}
-                  />
-                </group>
-                <group name="Symmetry_1014">
-                  <mesh
-                    name="Symmetry_1__0014"
-                    geometry={nodes.Symmetry_1__0014.geometry}
-                    material={materials["Scene_-_Root.003"]}
-                  />
-                </group>
-              </group>
-            </group>
-          </group>
-          <group
-            name="ceiling_Light_1013"
-            position={[-7, 3.42, 5]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          >
-            <group
-              name="b0ada5875fd342f09c431cbe4002bffdfbx015"
-              rotation={[Math.PI / 2, 0, 0]}
-              scale={0.01}
-            >
-              <group name="RootNode016">
-                <group
-                  name="CINEMA_4D_Editor015"
-                  position={[10.598, 26.398, -30.444]}
-                  rotation={[Math.PI, -1.503, 2.293]}
-                >
-                  <group name="Object_4015" />
-                </group>
                 <group name="Cube015">
                   <mesh
                     name="Cube__0015"
-                    geometry={nodes.Cube__0015.geometry}
-                    material={materials["Scene_-_Root.003"]}
+                    geometry={safeGeometry("Cube__0015")}
+                    material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry015">
                   <mesh
                     name="Symmetry__0015"
-                    geometry={nodes.Symmetry__0015.geometry}
-                    material={materials["Scene_-_Root.003"]}
+                    geometry={safeGeometry("Symmetry__0015")}
+                    material={materials["Scene_-_Root.002"]}
                   />
                 </group>
                 <group name="Symmetry_1015">
                   <mesh
                     name="Symmetry_1__0015"
-                    geometry={nodes.Symmetry_1__0015.geometry}
-                    material={materials["Scene_-_Root.003"]}
+                    geometry={safeGeometry("Symmetry_1__0015")}
+                    material={materials["Scene_-_Root.002"]}
                   />
                 </group>
               </group>
             </group>
           </group>
+
           <mesh
             name="gym_ceiling"
             geometry={nodes.gym_ceiling.geometry}
@@ -2854,148 +2823,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
 
           {currentView === "projects" && (
             <>
-              <group
-                name="amazon_box"
-                position={[3.64, 1.17, 9.18]}
-                rotation={[-Math.PI / 2, 0, 0]}
-                scale={0.01}
-              >
-                <group
-                  name="a366978fdd564d359a25ec4aab2a25e0objcleanergles"
-                  position={[-22.332, -18.116, 0]}
-                >
-                  <group name="Object_2">
-                    <mesh
-                      name="Object_3"
-                      geometry={nodes.Object_3.geometry}
-                      material={materials.crate_texture}
-                    />
-                    <mesh
-                      name="Object_3001"
-                      geometry={nodes.Object_3001.geometry}
-                      material={materials.crate_texture}
-                      position={[-15.299, 9.959, -0.301]}
-                      rotation={[0, 0, 1.902]}
-                    />
-                    <mesh
-                      name="Object_3002"
-                      geometry={nodes.Object_3002.geometry}
-                      material={materials.crate_texture}
-                      position={[-2.456, 22.833, 36.314]}
-                      rotation={[0, 0, -0.663]}
-                    />
-                  </group>
-                </group>
-              </group>
-              <mesh
-                name="large_skill_dumbbell003"
-                geometry={nodes.large_skill_dumbbell003.geometry}
-                material={materials.rubber}
-                position={[4.168, 1.248, 9.302]}
-                rotation={[0, 0, 1.204]}
-                scale={0.5}
-              />
-              <mesh
-                name="locker_project_model_plate"
-                geometry={nodes.locker_project_model_plate.geometry}
-                material={materials.weights}
-                position={[4.89, 1.32, 8.99]}
-                rotation={[0.82, 0, 0]}
-                scale={0.8}
-              />
-              {/* <group
-                name="phone"
-                position={[2.92, 1.4, 9.3]}
-                rotation={[-Math.PI / 2, 0, 0.698]}
-                scale={[0.15, 0.1, 0.15]}>
-                <group name="55dfebbf940a459ba2ed4034ab2d80dcfbx" rotation={[Math.PI / 2, 0, 0]}>
-                  <group name="RootNode">
-                    <group name="HomeButton" position={[0, -1.322, -0.02]}>
-                      <mesh
-                        name="HomeButton_PhoneButtons_m_0"
-                        geometry={nodes.HomeButton_PhoneButtons_m_0.geometry}
-                        material={materials.PhoneButtons_m}
-                      />
-                    </group>
-                    <group name="PhoneBody">
-                      <mesh
-                        name="PhoneBody_PhoneBody_m_0"
-                        geometry={nodes.PhoneBody_PhoneBody_m_0.geometry}
-                        material={materials.PhoneBody_m}
-                      />
-                      <mesh
-                        name="PhoneBody_PhoneScreen_M_0"
-                        geometry={nodes.PhoneBody_PhoneScreen_M_0.geometry}
-                        material={materials.PhoneScreen_M}
-                      />
-                    </group>
-                    <group name="PowerButton" position={[-0.723, 1.487, 0.008]}>
-                      <mesh
-                        name="PowerButton_PhoneButtons_m_0"
-                        geometry={nodes.PowerButton_PhoneButtons_m_0.geometry}
-                        material={materials.PhoneButtons_m}
-                      />
-                    </group>
-                    <group
-                      name="VolumeButton"
-                      position={[0.749, 1.145, 0.008]}
-                      rotation={[0, 0, -Math.PI / 2]}>
-                      <mesh
-                        name="VolumeButton_PhoneButtons_m_0"
-                        geometry={nodes.VolumeButton_PhoneButtons_m_0.geometry}
-                        material={materials.PhoneButtons_m}
-                      />
-                    </group>
-                  </group>
-                </group>
-              </group> 
-              <group
-                name="SecurityCameraBase"
-                position={[6.16, 1.36, 9.13]}
-                rotation={[Math.PI / 2, 0, 0]}
-                scale={0.03}>
-                <mesh
-                  name="Mesh"
-                  geometry={nodes.Mesh.geometry}
-                  material={materials.Team3_Sanchez_SecurityCameraBase}
-                />
-                <mesh
-                  name="Mesh_1"
-                  geometry={nodes.Mesh_1.geometry}
-                  material={materials.Team3_Sanchez_SecurityCameraBolt}
-                />
-              </group>
-              <group
-                name="SecurityCamera"
-                position={[6.14, 1.35, 9.13]}
-                rotation={[Math.PI / 2, 0, 0.925]}
-                scale={0.03}>
-                <mesh
-                  name="Mesh001"
-                  geometry={nodes.Mesh001.geometry}
-                  material={materials.Team3_Sanchez_SecurityCameraBase}
-                />
-                <mesh
-                  name="Mesh001_1"         
-                  geometry={nodes.Mesh001_1.geometry}
-                  material={materials.Team3_Sanchez_SecuruityCameraLens}
-                />
-                <mesh
-                  name="Mesh001_2"
-                  geometry={nodes.Mesh001_2.geometry}
-                  material={materials.Team3_Sanchez_SecurityCameraBolt}
-                />
-                <mesh
-                  name="Mesh001_3"
-                  geometry={nodes.Mesh001_3.geometry}
-                  material={materials.Team3_Sanchez_SecuirtyCameraOnButton}
-                />
-                <mesh
-                  name="Mesh001_4"        
-                  geometry={nodes.Mesh001_4.geometry}
-                  material={materials.lambert1}
-                />
-              </group> */}
+              {/* 3D project models removed - lockers are now empty */}
             </>
           )}
         </group>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dumbbell, ShoppingCart } from 'lucide-react';
-import { project1, project2 } from '../../public';
+import { Dumbbell, ShoppingCart, Globe, X } from 'lucide-react';
+import { project1, SwimLessons, Saferly } from '../../public';
 
-const ProjectCard = ({ title, icon: Icon, description, skills, image }) => (
+const ProjectCard = ({ title, icon: Icon, description, skills, image, link }) => (
   <div className="bg-emerald-100 rounded-lg shadow-lg flex flex-col h-full">
     <div className="bg-emerald-400 p-4 rounded-t-lg">
       <div className="flex items-center">
@@ -16,6 +16,19 @@ const ProjectCard = ({ title, icon: Icon, description, skills, image }) => (
       <div className="flex flex-col md:flex-row gap-8 h-full">
         <div className="flex-[6] flex flex-col">
           <p className="text-emerald-700 mb-6 text-xl leading-relaxed flex-grow">{description}</p>
+          {link && (
+            <div className="mb-6">
+              <a 
+                href={link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              >
+                <Globe className="w-5 h-5 mr-2" />
+                View Project
+              </a>
+            </div>
+          )}
           <div className="mt-auto">
             <h3 className="text-xl font-semibold text-emerald-700 mb-3">Skills:</h3>
             <div className="flex flex-wrap gap-3">
@@ -37,22 +50,33 @@ const ProjectCard = ({ title, icon: Icon, description, skills, image }) => (
 
 const Projects = ({ activePopup, onClose }) => {
   const content = {
-    interactivePortfolio: (
+    swimWebsite: (
       <ProjectCard
-        title="3D Interactive Portfolio"
+        title="Brandeis Swimming Lessons"
         icon={Dumbbell}
-        description="My portfolio is a unique blend of 3D web development, incorporating Three.js, React, HTML, CSS, and Blender. It features a fully interactive 3D environment, complete with animations and a mini-game. This project not only showcases my skills but also enhances the user experience by making information accessible through engaging, interactive elements."
-        skills={['Three.js', 'React', 'HTML', 'CSS', 'Blender']}
-        image={project1}
+        description="Developed a comprehensive swimming lesson management website serving 50+ students and 20+ instructors, designed to help parents concerned with water safety easily enroll their children in lessons. Features include automated scheduling, payment processing, and real-time data synchronization. Eliminated 100% of manual scheduling processes by architecting a scalable lesson management platform using Next.js, Prisma ORM, and PostgreSQL, with automated instructor availability tracking."
+        skills={['Next.js', 'JavaScript', 'PostgreSQL', 'Prisma ORM', 'Next-Auth', 'JWT']}
+        image={SwimLessons}
+        link="https://www.busdtswimlessons.com/"
       />
     ),
-    ecommerceIntegration: (
+    saferly: (
       <ProjectCard
-        title="E-commerce Integration with NetSuite"
+        title="Saferly"
         icon={ShoppingCart}
-        description="In this project, I developed an e-commerce platform using WordPress and WooCommerce integrated with NetSuite Oracle. The platform includes a custom API that enhances user experience by enabling real-time tracking of orders and automated product updates based on inventory checks, streamlining the shopping process."
-        skills={['WordPress', 'WooCommerce', 'NetSuite Oracle', 'API']}
-        image={project2}
+        description="Built the Saferly app to provide the elderly easy-to-use and safe access to the internet, with Flutter & Google Cloud Platform. Reduced phishing risks by 75% through engineering a secure email verification system using OAuth 2.0 and Gmail API. Achieved 99% accuracy in identifying malicious URLs by constructing a real-time website risk assessment tool using Ipqualityscore API."
+        skills={['Flutter', 'Firebase', 'Google Cloud Platform', 'OAuth 2.0', 'Gmail API']}
+        image={Saferly}
+        link="https://devpost.com/software/saferly"
+      />
+    ),
+    portfolio: (
+      <ProjectCard
+        title="3D Interactive Portfolio"
+        icon={Globe}
+        description="My portfolio is a unique blend of 3D web development, incorporating Three.js, React, HTML, CSS, and Blender. It features a fully interactive 3D environment, complete with animations and a mini-game. This project not only showcases my skills but also enhances the user experience by making information accessible through engaging, interactive elements."
+        skills={['Three.js', 'React', 'HTML', 'CSS', 'Blender', 'GSAP']}
+        image={project1}
       />
     ),
   };
@@ -60,17 +84,18 @@ const Projects = ({ activePopup, onClose }) => {
   if (!activePopup) return null;
 
   return (
-    <div className="bg-emerald-50 rounded-xl p-10 mx-auto overflow-y-auto h-full flex flex-col">
+    <div className="bg-emerald-50 rounded-xl p-10 mx-auto overflow-y-auto h-full flex flex-col relative">
+      {/* Close button positioned at top right */}
+      <button 
+        onClick={onClose}
+        className="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-2 transition-colors duration-200"
+        aria-label="Close"
+      >
+        <X className="w-6 h-6" />
+      </button>
+      
       <div className="flex-grow mb-8">
         {content[activePopup]}
-      </div>
-      <div className="flex justify-start mt-auto">
-        <button 
-          onClick={onClose}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-xl"
-        >
-          Close
-        </button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Dumbbell, Briefcase, GraduationCap } from 'lucide-react';
+import { Dumbbell, Briefcase, GraduationCap, BookOpen, X } from 'lucide-react';
 import { leetcode, github, linkedin, document, resume } from '../../public';
 
 const AboutSection = ({ title, icon: Icon, children }) => (
@@ -22,7 +22,7 @@ const About = ({ activePopup, onClose }) => {
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-[7] md:pr-4">
             <p className="text-gray-700 mb-4 text-lg">
-              Hey, I'm Eric Xiao, a student-athlete at Brandeis University pursuing a BS in Computer Science with a minor in Economics. I'm passionate about Data Science and Machine Learning, always looking to merge analytical skills with practical applications in the field of computer science. 
+              Hey, I'm Eric Xiao, a student-athlete at Brandeis University pursuing a BS in Computer Science with a minor in Economics. I'm passionate about software engineering and full-stack development, with experience building scalable applications and working with modern technologies. I love solving complex problems and creating user-friendly solutions that make a real impact.
             </p>
           </div>
           <div className="flex-[3] flex justify-center items-center">
@@ -66,20 +66,29 @@ const About = ({ activePopup, onClose }) => {
       <AboutSection title="Experience" icon={Briefcase}>
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-semibold mb-2">Arbin Instruments, College Station, TX — Software Engineer Intern</h3>
-            <p className="text-gray-600 mb-2">May 2023 - August 2023</p>
+            <h3 className="text-xl font-semibold mb-2">DraftKings — Software Engineer Intern</h3>
+            <p className="text-gray-600 mb-2">Jun 2025 - Aug 2025 • Boston, MA</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-              <li>Developed interactive and responsive website pages using React, HTML, and CSS</li>
-              <li>Created software features for SQL data filtering and visualization using C# and Python</li>
-              <li>Designed a feature for cloning PDF files and converting them to Word format</li>
+              <li>Contributed to investigation of game launch failures affecting <strong>0.5%</strong> of platform errors, helped identify root cause and implement production fix within <strong>24 hours</strong> of intensive analysis</li>
+              <li>Developed user tracking system across <strong>10+</strong> backend microservices using <strong>.NET/C#</strong> and <strong>TypeScript</strong>, integrated with <strong>Datadog</strong> for monitoring and redesigned infrastructure for improved scalability and incident response</li>
+              <li>Helped engineer Crown accrual groups architecture transition from one-to-one to many-to-many mapping for <strong>1000+</strong> games serving <strong>millions</strong> of users, optimized infrastructure by migrating from <strong>TypeORM</strong> to direct <strong>SQL</strong> queries</li>
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-semibold mb-2">Arbin Instruments, College Station, TX — Software Engineer Intern</h3>
-            <p className="text-gray-600 mb-2">May 2024 - August 2024</p>
+            <h3 className="text-xl font-semibold mb-2">Stealth Startup — Software Engineer Intern</h3>
+            <p className="text-gray-600 mb-2">Jul 2024 - Feb 2025 • Remote</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-              <li>Designed and implemented an API to integrate with NetSuite Oracle</li>
-              <li>Developed a comprehensive website for enhanced customer experience</li>
+              <li>Co-engineered a <strong>Flutter/Google Cloud</strong> social dining app for shared meal discounts via restaurant partnerships</li>
+              <li>Attained <strong>97%</strong> accuracy in NSFW image detection by integrating Google Cloud Vision API for content moderation</li>
+              <li>Processed <strong>10,000+</strong> daily requests with <strong>40%</strong> decrease in unresolved safety incidents by engineering a scalable safety infrastructure with Firebase, supporting five distinct reporting channels</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Arbin Instruments — Software Engineer Intern</h3>
+            <p className="text-gray-600 mb-2">May 2024 - Aug 2024 • College Station, TX</p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <li>Reduced issue triage time by <strong>80%</strong> by developing a customer support ticket system with automated email notifications</li>
+              <li>Streamlined data synchronization by developing a custom RESTful API integrating the customer support website with NetSuite for package tracking and invoice generation</li>
             </ul>
           </div>
         </div>
@@ -89,18 +98,47 @@ const About = ({ activePopup, onClose }) => {
       <AboutSection title="Education" icon={GraduationCap}>
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-semibold mb-2">Brandeis University — Pursuing a BS</h3>
-            <p className="text-gray-600 mb-2">August 2022 - December 2025: Waltham, MA</p>
-            <p className="text-gray-700">Major in Computer Science, Minor in Economics. GPA: 3.7/4.0</p>
-            <p className="text-gray-700 mt-2">Relevant Courses: Intro to Python, Advanced Programming Techniques in Java, Data Structures, Intro to Computer Security</p>
+            <h3 className="text-xl font-semibold mb-2">Brandeis University — B.S. in Computer Science, Minor in Economics</h3>
+            <p className="text-gray-600 mb-2">Aug 2022 - Expected Dec 2025 • Waltham, MA</p>
+            <p className="text-gray-700 font-semibold">GPA: 3.67/4.0</p>
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2">Student Athlete - Brandeis University Varsity Swimming</h3>
-            <p className="text-gray-600 mb-2">August 2022 - Present</p>
+            <p className="text-gray-600 mb-2">Aug 2022 - Present</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>Exhibited discipline by consistently committing to every practice</li>
               <li>Enhanced team performance by guiding teammates in strengthening techniques</li>
             </ul>
+          </div>
+        </div>
+      </AboutSection>
+    ),
+    coursework: (
+      <AboutSection title="Relevant Coursework" icon={BookOpen}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Data Structures</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Algorithms</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Machine Learning</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Statistics</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Information Visualization</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Computer Systems</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Discrete Structures</span>
+          </div>
+          <div className="bg-blue-100 p-3 rounded-lg text-center">
+            <span className="font-semibold text-blue-800">Theory of Computation</span>
           </div>
         </div>
       </AboutSection>
@@ -110,18 +148,20 @@ const About = ({ activePopup, onClose }) => {
   if (!activePopup) return null;
 
   return (
-    <div className="bg-white rounded-xl p-8 mx-auto overflow-y-auto h-full flex flex-col">
+    <div className="bg-white rounded-xl p-8 mx-auto overflow-y-auto h-full flex flex-col relative">
+      {/* Close button positioned at top right */}
+      <button 
+        onClick={onClose}
+        className="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-2 transition-colors duration-200"
+        aria-label="Close"
+      >
+        <X className="w-6 h-6" />
+      </button>
+      
       <div className="flex-grow flex flex-col mb-8">
         {content[activePopup]}
       </div>
-      <div className="flex justify-start mt-auto">
-        <button 
-          onClick={onClose}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors"
-        >
-          Close
-        </button>
-      </div>
+      
       {showResume && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-100">

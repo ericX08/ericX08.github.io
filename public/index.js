@@ -22,8 +22,14 @@ import document from "/document.svg"
 import project1 from "/project1.png"
 import project2 from "/project2.png"
 import resume from "/Resume.pdf"
+import SwimLessons from "/SwimLessons.png"
+import Saferly from "/Saferly.png"
+import flutter from "/flutter-plain.svg"
+import postgresql from "/postgresql-plain.svg"
+import r from "/r-line.svg"
 
 export {css, arrow, javascript, blender, csharp, email, github,
     html, java, leetcode, linkedin, php, python, resume, typescript,
-    wordpress, xamarin, work, edu, about, load, document, project1, project2
+    wordpress, xamarin, work, edu, about, load, document, project1, project2,
+    SwimLessons, Saferly, flutter, postgresql, r
 }
